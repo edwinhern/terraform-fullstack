@@ -20,3 +20,15 @@ module "subnets" {
   project_name    = var.project_name
   environment     = var.environment
 }
+
+
+module "route_tables" {
+  source                     = "./modules/route_tables"
+  vpc_id                     = module.vpc.vpc_id
+  vpc_default_route_table_id = module.vpc.vpc_default_route_table_id
+  internet_gateway_id        = module.internet_gateway.internet_gateway_id
+  public_subnet_ids          = module.subnets.public_subnet_ids
+  private_subnet_ids         = module.subnets.private_subnet_ids
+  project_name               = var.project_name
+  environment                = var.environment
+}
